@@ -63,7 +63,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'pinchi.urls'
-
+CUSTOMER_CATEGORIES = {
+    'BRONZE': 20,
+    'SILVER': 49,
+    # GOLD is implicitly 50 and above
+}
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
