@@ -38,10 +38,14 @@ class Order(models.Model):
         default=OrderStatus.PENDING,
         verbose_name=_('Status')
     )
+    objects = models.Manager()
     # Additional fields like shipping address can be added here
 
     def __str__(self):
         user_instance = self.user  # Fetch the related User instance
         return f"Order {self.pk} - {user_instance.username}"
 
- 
+    class Meta:
+        ordering = ['-date_placed']
+        verbose_name = _('Order')
+        verbose_name_plural = _('Orders')
