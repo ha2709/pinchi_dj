@@ -12,15 +12,21 @@ class Discount(models.Model):
         help_text=_('Discount percentage for the product category and user category.')
     )
     product_category = models.ForeignKey(
-        Category,  # Use the correct Category model
+        Category,  # Replace 'Category' with the correct Category model
         on_delete=models.CASCADE,
         verbose_name=_('Product Category')
     )
+    USER_CATEGORY_CHOICES = [
+        ('Bronze', 'Bronze'),
+        ('Silver', 'Silver'),
+        ('Gold', 'Gold'),
+    ]
     user_category = models.CharField(
         max_length=50,
-        choices=settings.CUSTOMER_CATEGORIES,
+        choices=USER_CATEGORY_CHOICES,
         verbose_name=_('User Category')
     )
+
     objects = models.Manager()
 
     def __str__(self):

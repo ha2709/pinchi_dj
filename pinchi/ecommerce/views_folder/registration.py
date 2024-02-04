@@ -20,14 +20,7 @@ class UserRegistrationView(APIView):
             token = RefreshToken.for_user(user).access_token
             verification_url = reverse('email-verify')
             absolute_url = f"{request.build_absolute_uri(verification_url)}?token={str(token)}"
-            email_body = f'Hi {user.username}, use the link below to verify your email:\n{absolute_url}'
-            # send_mail(
-            #     'Verify your email',
-            #     email_body,
-            #     'from@example.com',  # Replace with your actual email
-            #     [user.email],
-            #     fail_silently=False,
-            # )
+           
             # Use custom function to send verification email
             send_verification_email(user.email, absolute_url)
             # Including the verification link in the response

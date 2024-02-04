@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
+    restart: always
+    env_file:
+      - .env.docker
+ 
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/init-scripts:/docker-entrypoint-initdb.d
+  
+  backend:
+    container_name: drf
+    restart: always
+    build:
+      context: ./pinchi
+    
+    env_file:
+      - .env.docker
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./pinchi:/app
+    depends_on:
+      - postgres  
+      
+  frontend:
+    container_name: react-app
+    restart: always
+    build:
+      context: ./client
+    env_file:
+      - .env.docker
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./client:/app
